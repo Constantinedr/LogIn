@@ -6,7 +6,7 @@ class Auth_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
-
+    //cant have more than 50 char
     public function register($data) {
         $user_data = [
             'first_name' => $data['first_name'],
@@ -17,7 +17,7 @@ class Auth_model extends CI_Model {
 
         return $this->db->insert('users', $user_data);
     }
-    
+
     public function insert_dummy()
     {
         $data = [
