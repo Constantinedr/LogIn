@@ -63,6 +63,20 @@ class Auth_model extends CI_Model {
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get('messages')->result();
     }
+
+    public function get_all_users() {
+        $this->db->select('id, first_name, last_name, email, is_admin');
+        $this->db->order_by('id', 'ASC');
+        return $this->db->get('users')->result();
+    }
+
+    public function get_all_messages() {
+        $this->db->select('messages.*, users.email as user_email');
+        $this->db->from('messages');
+        $this->db->join('users', 'messages.user_id = users.id', 'left');
+        $this->db->order_by('messages.created_at', 'DESC');
+        return $this->db->get()->result();
+    }
     
     public function save_password_reset_token($email, $token) {
         return $this->db->where('email', $email)
