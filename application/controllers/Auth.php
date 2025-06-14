@@ -45,6 +45,37 @@ class Auth extends CI_Controller {
         }
     }
 
+    public function dashboard() {
+    $user_id = $this->session->userdata('user_id');
+    if (!$user_id) {
+        redirect('auth/login');
+    }
+
+    $user = $this->Auth_model->get_user_by_id($user_id);
+    $data['user'] = $user;
+    $this->load->view('dashboard', $data);
+    }
+
+    public function update_user() {
+    $user_id = $this->session->userdata('user_id');
+    if (!$user_id) {
+        redirect('auth/login');
+    }
+
+    $data = [
+        'first_name' => $this->input->post('first_name'),
+        'last_name' => $this->input->post('last_name'),
+        'email' => $this->input->post('email'),
+    ];
+
+    $password = $this->input->post('password');
+    if (!empty($password)) {
+        $data['password'] = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    $this->Auth_model->update_user($user_id, $data);
+    redirect('auth/dashboard');
+}
 
 
 
@@ -63,7 +94,7 @@ class Auth extends CI_Controller {
 
         if ($user && password_verify($password, $user->password)) {
             $this->session->set_userdata('user_id', $user->id);
-            echo "Login successful. <a href='".site_url('auth/logout')."'>Logout</a>";
+            redirect('auth/dashboard');
         } else {
             echo "Login failed. <a href='".site_url('auth/login')."'>Try again</a>";
         }
@@ -71,7 +102,7 @@ class Auth extends CI_Controller {
 
     public function logout() {
         $this->session->unset_userdata('user_id');
-        echo "Logged out. <a href='".site_url('auth/login')."'>Login</a>";
+        redirect('auth/login');
     }
 
     public function create_dummy_user() {

@@ -6,6 +6,14 @@ class Auth_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
+    public function get_user_by_id($id) {
+    return $this->db->get_where('users', ['id' => $id])->row();
+    }
+
+    public function update_user($id, $data) {
+        return $this->db->where('id', $id)->update('users', $data);
+    }
+
     //cant have more than 50 char
     public function register($data) {
         $user_data = [
