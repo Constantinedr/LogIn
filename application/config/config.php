@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = 'http://localhost/LogIn/';
 
 /*
 |--------------------------------------------------------------------------
@@ -463,7 +463,7 @@ $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = TRUE;
 $config['csrf_exclude_uris'] = array();
-
+$config['smtp_pass'] = 'ctpizsygdqvyqzbl';
 /*
 |--------------------------------------------------------------------------
 | Output Compression

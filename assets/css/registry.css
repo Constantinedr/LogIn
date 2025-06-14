@@ -1,79 +1,71 @@
-        body, h1, h2, h3, h4, h5, h6, p, label, input, textarea, button, a {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif; /* General font, customize if needed */
-            color: #6c757d; /* Grey text color from your existing styles */
-            box-sizing: border-box;
-        }
+body, h1, h2, h3, h4, h5, h6, p, label, input, textarea, button, a {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    color: #6c757d;
+    box-sizing: border-box;
+}
 
-        body {
-            
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* Full viewport height */
-        }
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
-        /* --- Reused/Modified CSS for the Form --- */
-        .login-wrapper { /* Reused for the main container */
-            width: 100%;
-            max-width: 400px; /* Constrain width as per image */
-            
-            padding: 20px; /* Padding inside the container */
-            text-align: center;
-            background-color: #fff; /* White background for the form area */
-        }
+.login-wrapper {
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+}
 
-        .login-title { /* Reused for the main title */
-            font-size: 1.5rem; /* Adjust font size for main title */
-            margin-bottom: 20px; /* Increased margin for this page */
-            text-transform: uppercase;
-            color: #6c757d;
-            font-weight: normal;
-        }
+.login-title {
+    font-size: 2rem;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    color: #6c757d;
+    font-weight: normal;
+}
 
-        /* .login-subtitle is not used on this page */
+.login-form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
 
-        .login-form-group { /* Reused for spacing between form groups */
-            margin-bottom: 15px; /* Spacing between form groups */
-            text-align: left; /* Align labels and inputs to the left */
-        }
+.login-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+    color: #6c757d;
+}
 
-        .login-label { /* Reused for labels */
-            display: block; /* Make label appear above input */
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-            color: #6c757d;
-        }
+.login-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #6c757d;
+    border-radius: 0;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+}
 
-        .login-input { /* Reused for input fields */
-            width: 100%;
-            padding: 8px 10px; /* Adjust padding */
-            border: 1px solid #6c757d; /* Grey border */
-            border-radius: 0; /* Square corners */
-            font-size: 1.1rem;
-            box-sizing: border-box; /* Include padding and border in element's total width */
-        }
+.login-button-container {
+    text-align: right;
+    margin-top: 30px;
+}
 
-        .login-button-container { /* Reused for button alignment */
-            text-align: right; /* Align button to the right */
-            margin-top: 20px;
-            /* No margin-bottom as there are no links below */
-        }
+.login-button {
+    padding: 12px 35px;
+    border: 1px solid #6c757d;
+    background-color: #fff;
+    color: #6c757d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.2s, color 0.2s;
+}
 
-        .login-button { /* Reused for button styling */
-            padding: 8px 25px; /* Adjust padding for button */
-            border: 1px solid #6c757d; /* Grey border for button */
-            background-color: #fff; /* White background */
-            color: #6c757d; /* Grey text */
-            font-size: 1.1rem;
-            cursor: pointer;
-            border-radius: 0; /* Square corners */
-            transition: background-color 0.2s, color 0.2s;
-        }
-
-        .login-button:hover {
-            background-color: #e9ecef; /* Slight hover effect */
-        }
-
-        /* .login-links is not used on this page */
+.login-button:hover {
+    background-color: #e9ecef;
+}

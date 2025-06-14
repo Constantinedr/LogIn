@@ -9,7 +9,6 @@ class Auth extends CI_Controller {
         $this->load->model('Auth_model');
         $this->load->library('session');
         $this->load->library('email');
-        $this->config->item('smtp_user'); 
         $this->load->helper(['form', 'url']);
     }
 
@@ -31,8 +30,8 @@ class Auth extends CI_Controller {
             'last_name' => $this->input->post('last_name'),
             'email' => $this->input->post('email'),
             'password' => $this->input->post('password'),
-            'confirm_password' => $this->input->post('confirm_password')
-            
+            'confirm_password' => $this->input->post('confirm_password'),
+            'is_admin' => 0 // Ensure new users are not admins by default
         ];
 
         if ($data['password'] !== $data['confirm_password']) {
@@ -58,19 +57,33 @@ class Auth extends CI_Controller {
 
         $user = $this->Auth_model->get_user_by_email($email);
 
-        if ($user && password_verify($password, $user->password)) {
+        if ($user && password_verify($password, $user->password) && !$user->is_admin) {
             $this->session->set_userdata('user_id', $user->id);
             redirect('dashboard');
         } else {
-            echo "Login failed. <a href='".site_url('auth/login')."'>Try again</a>";
+            echo "Login failed. Invalid credentials or not a customer account. <a href='".site_url('auth/login')."'>Try again</a>";
+        }
+    }
+
+    public function login_admin() {
+        $email = $this->input->post('email');
+        $password = $this->input->post('password');
+
+        $user = $this->Auth_model->get_user_by_email($email);
+
+        if ($user && password_verify($password, $user->password) && $user->is_admin) {
+            $this->session->set_userdata('user_id', $user->id);
+            $this->session->set_userdata('is_admin', true);
+            redirect('admin/dashboard');
+        } else {
+            echo "Admin login failed. Invalid credentials or not an admin account. <a href='".site_url('auth/login')."'>Try again</a>";
         }
     }
 
     public function logout() {
-        $this->session->unset_userdata('user_id');
+        $this->session->unset_userdata(['user_id', 'is_admin']);
         redirect('auth/login');
     }
-
 
     public function send_reset_link() {
         $email = $this->input->post('email');
@@ -90,8 +103,8 @@ class Auth extends CI_Controller {
             'protocol'  => 'smtp',
             'smtp_host' => 'smtp.gmail.com',
             'smtp_port' => 587,
-            'smtp_user' => 'lampadarisconstantine@gmail.com', 
-            'smtp_pass' => 'ctpizsygdqvyqzbl',   
+            'smtp_user' => 'lampadarisconstantine@gmail.com',
+            'smtp_pass' => $this->config->item('smtp_pass'),
             'smtp_crypto' => 'tls',
             'mailtype'  => 'html',
             'charset'   => 'utf-8',

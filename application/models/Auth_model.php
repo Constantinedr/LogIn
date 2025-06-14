@@ -6,8 +6,9 @@ class Auth_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
+
     public function get_user_by_id($id) {
-    return $this->db->get_where('users', ['id' => $id])->row();
+        return $this->db->get_where('users', ['id' => $id])->row();
     }
 
     public function update_user($id, $data) {
@@ -23,7 +24,8 @@ class Auth_model extends CI_Model {
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
-            'password' => password_hash($data['password'], PASSWORD_DEFAULT)
+            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'is_admin' => isset($data['is_admin']) ? $data['is_admin'] : 0
         ];
 
         return $this->db->insert('users', $user_data);
@@ -32,8 +34,9 @@ class Auth_model extends CI_Model {
     public function insert_dummy()
     {
         $data = [
-            'email' => 'tesgddfgt@example.com',
-            'password' => password_hash('password', PASSWORD_DEFAULT)
+            'email' => 'test@example.com',
+            'password' => password_hash('password', PASSWORD_DEFAULT),
+            'is_admin' => 0
         ];
 
         return $this->db->insert('users', $data);
@@ -44,17 +47,17 @@ class Auth_model extends CI_Model {
         return $this->db->get_where('users', ['email' => $email])->row();
     }
 
-
     public function login($username, $password)
     {
         $query = $this->db->get_where('users', ['username' => $username]);
         $user = $query->row();
 
         if ($user && password_verify($password, $user->password)) {
-            return $user; 
+            return $user;
         }
         return false;
     }
+
     public function get_messages() {
         $this->db->where('user_id', $this->session->userdata('user_id'));
         $this->db->order_by('created_at', 'DESC');

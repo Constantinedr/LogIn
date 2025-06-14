@@ -45,7 +45,7 @@
     </div>
 
     <div class="form-container">
-        <form method="post" action="<?= site_url('dashboard/update_user') ?>" class="user-form active">
+        <form method="post" action="<?= site_url('Admin/update_user') ?>" class="user-form active">
             <div class="mb-4">
                 <label for="first_name" class="form-label">Name</label>
                 <input type="text" name="first_name" id="first_name" class="form-control" value="<?= $user->first_name ?>" required>

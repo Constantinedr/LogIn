@@ -1,102 +1,141 @@
- /* Basic reset for consistent rendering */
-        body, h1, h2, h3, h4, h5, h6, p, label, input, textarea, button, a {
-            margin: 0;
-            padding: 0;
-            font-family: sans-serif; /* General font, customize if needed */
-            color: #6c757d; /* Grey text color from your existing styles */
-            box-sizing: border-box;
-        }
+/* Basic reset for consistent rendering */
+body, h1, h2, h3, h4, h5, h6, p, label, input, textarea, button, a {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    color: #6c757d;
+    box-sizing: border-box;
+}
 
-        body {
-            background-color: #f8f9fa; /* Light background color */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh; /* Full viewport height */
-        }
+body {
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
 
-        /* --- New/Modified CSS for the Login Form --- */
-        .login-wrapper {
-            width: 100%;
-            max-width: 400px; /* Constrain width as per image */
-            border: 1px solid #6c757d; /* Border around the main container */
-            padding: 20px; /* Padding inside the container */
-            text-align: center;
-            background-color: #fff; /* White background for the form area */
-        }
+/* New style for the admin button container */
+.admin-button-container {
+    
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    z-index: 10;
+}
 
-        .login-title {
-            top: 110%;
-            font-size: 1.5rem; /* Adjust font size for main title */
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            color: #6c757d;
-            font-weight: normal; /* Make it lighter as in image */
-        }
+.admin-button {
+    padding: 12px 20px;
+    border: 1px solid #6c757d;
+    background-color: #fff;
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.2s;
+}
 
-        .login-subtitle {
-            font-size: 1.1rem; /* Adjust font size for subtitle */
-            margin-bottom: 20px;
-            color: #6c757d;
-            border-bottom: 1px solid #6c757d; /* Line below CUSTOMER */
-            padding-bottom: 5px;
-            display: inline-block; /* To make border-bottom only span text */
-        }
+.admin-button:hover {
+    background-color: #e9ecef;
+}
 
-        .login-form-group {
-            margin-bottom: 15px; /* Spacing between form groups */
-            text-align: left; /* Align labels and inputs to the left */
-        }
+/* Adjustments for the main title */
+.page-main-title {
+    font-size: 2rem;
+    text-transform: uppercase;
+    color: #6c757d;
+    font-weight: normal;
+    text-align: center;
+    position: absolute;
+    top: 44%;
+    left: 50%;
+    transform: translate(-50%, -50%) translateY(-220px);
+    width: 100%;
+    max-width: 500px;
+}
 
-        .login-label {
-            display: block; /* Make label appear above input */
-            margin-bottom: 5px;
-            font-size: 1.1rem;
-            color: #6c757d;
-        }
+/* Login Form Styles */
+.login-wrapper {
+    width: 100%;
+    max-width: 500px;
+    border: 1px solid #6c757d;
+    padding: 30px;
+    text-align: center;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
-        .login-input {
-            width: 100%;
-            padding: 8px 10px; /* Adjust padding */
-            border: 1px solid #6c757d; /* Grey border */
-            border-radius: 0; /* Square corners */
-            font-size: 1.1rem;
-            box-sizing: border-box; /* Include padding and border in element's total width */
-        }
+.login-title {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    color: #6c757d;
+    border-bottom: 2px solid #6c757d;
+    padding-bottom: 10px;
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: normal;
+}
 
-        .login-button-container {
-            text-align: right; /* Align button to the right */
-            margin-top: 20px;
-            margin-bottom: 20px; /* Space before links */
-        }
+.login-form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
 
-        .login-button {
-            padding: 8px 25px; /* Adjust padding for 'OK' button */
-            border: 1px solid #6c757d; /* Grey border for button */
-            background-color: #fff; /* White background */
-            color: #6c757d; /* Grey text */
-            font-size: 1.1rem;
-            cursor: pointer;
-            border-radius: 0; /* Square corners */
-            transition: background-color 0.2s, color 0.2s;
-        }
+.login-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+    color: #6c757d;
+}
 
-        .login-button:hover {
-            background-color: #e9ecef; /* Slight hover effect */
-        }
+.login-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #6c757d;
+    border-radius: 0;
+    font-size: 1.3rem;
+    box-sizing: border-box;
+}
 
-        .login-links {
-            margin-top: 15px;
-        }
+.login-button-container {
+    text-align: right;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
 
-        .login-links a {
-            display: block; /* Each link on its own line */
-            margin-bottom: 10px; /* Space between links */
-            text-decoration: none; /* Remove underline */
-            color: #6c757d; /* Grey color */
-            font-size: 1.1rem;
-        }
+.login-button {
+    padding: 12px 35px;
+    border: 1px solid #6c757d;
+    background-color: #fff;
+    color: #6c757d;
+    font-size: 1.3rem;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.2s, color 0.2s;
+}
 
-        .login-links a:hover {
-            text-decoration: underline;
-        }
+.login-button:hover {
+    background-color: #e9ecef;
+}
+
+.login-links {
+    margin-top: 20px;
+}
+
+.login-links a {
+    display: block;
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: #6c757d;
+    font-size: 1.3rem;
+}
+
+.login-links a:hover {
+    text-decoration: underline;
+}

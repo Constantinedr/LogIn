@@ -33,7 +33,7 @@
             <button type="submit" class="login-button">Registry</button>
         </div>
         <div class="login-button-container">
-            <a href="<?= site_url('auth/login'); ?>" class="login-button">Back to Login</a>
+            <a style="text-decoration:none" href="<?= site_url('auth/login'); ?>" class="login-button">Back to Login</a>
         </div>
     </form>
     </div>
