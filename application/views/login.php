@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Login</title>
-    <!-- Link to your custom CSS file -->
+    
     <link rel="stylesheet" href="<?= base_url('assets/css/Dashboard.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/LogIn.css') ?>">
 </head>
@@ -24,7 +24,7 @@
         </div>
     </form>
     <div class="login-links">
-        <a href="#">Lost My Pass</a>
+        <a href="<?php echo site_url('auth/LostPass'); ?>">Lost My Pass</a>
         <a href="<?php echo site_url('auth/registry'); ?>">New Account</a>
     </div>
 </div>

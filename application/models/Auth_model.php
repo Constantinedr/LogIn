@@ -60,4 +60,25 @@ class Auth_model extends CI_Model {
         $this->db->order_by('created_at', 'DESC');
         return $this->db->get('messages')->result();
     }
+    
+    public function save_password_reset_token($email, $token) {
+        return $this->db->where('email', $email)
+                        ->update('users', ['reset_token' => $token, 'token_created_at' => date('Y-m-d H:i:s')]);
+    }
+
+    public function get_email_by_token($token) {
+        $query = $this->db->get_where('users', ['reset_token' => $token]);
+        $user = $query->row();
+        return $user ? $user->email : false;
+    }
+
+    public function update_password_by_email($email, $hashed_password) {
+        return $this->db->where('email', $email)
+                        ->update('users', ['password' => $hashed_password]);
+    }
+
+    public function clear_reset_token($email) {
+        return $this->db->where('email', $email)
+                        ->update('users', ['reset_token' => null, 'token_created_at' => null]);
+    }
 }

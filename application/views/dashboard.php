@@ -63,6 +63,7 @@
                 <input type="password" name="password" id="password" class="form-control" placeholder="Leave blank to keep current">
             </div>
             <button type="submit" class="btn special-button">Update</button>
+            <a href="<?= site_url('auth/LogIn'); ?>" class="btn special-button">Back to logIn</a>
         </form>
     </div>
     <div class="form-cont">
@@ -102,6 +103,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
                 </div>
+                
             </div>
         </div>
     </div>
