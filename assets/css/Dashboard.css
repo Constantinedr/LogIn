@@ -1,0 +1,96 @@
+
+.special-button {
+    position: relative;
+    width: 200px;
+    border: 1px solid #000;
+    background-color: #f8f9fa;
+    margin-top: 10px;
+}
+
+.btn {
+    border-radius: 0 !important;
+    text-align: center;
+    font-size: 1.2rem;
+    padding: 10px;
+}
+
+.form-control { 
+    border-radius: 0 !important;
+    font-size: 1.2rem;
+    padding: 12px;
+    border: 1px solid #000;
+}
+
+
+.custom-textarea { 
+    width: 100%;
+    height: 350px; 
+    font-size: 1.2rem;
+    padding: 12px;
+    border: 1px solid #000;
+    border-radius: 0 !important; 
+    box-sizing: border-box;
+    resize: vertical; 
+}
+
+
+.custom-button {
+    width: 350px;
+    height: 50px;
+    margin: 0 15px;
+    font-size: 1.2rem;
+    border: 1px solid #000;
+}
+
+.form-container {
+    max-width: 600px;
+    margin: 70px auto;
+    font-size: 1.2rem;
+}
+.form-cont{
+    max-width: 75%;
+    margin: 0px auto;
+    font-size: 1.2rem;
+}
+.form-label {
+    color: #6c757d;
+}
+
+
+
+.message-form,
+.user-form,
+.history-form {
+    display: none;
+}
+
+.message-form.active,
+.user-form.active,
+.history-form.active {
+    display: block;
+}
+
+.message-item {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #000; 
+    padding: 10px; 
+}
+
+.message-text {
+    flex-grow: 1; 
+    border: none;
+    padding: 0; 
+    word-wrap: break-word;
+    margin-right: 15px; 
+}
+
+.message-date {
+    flex-shrink: 0; 
+    border: none; 
+    padding: 0; 
+    text-align: right;
+    white-space: nowrap;
+}

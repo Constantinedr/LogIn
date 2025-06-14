@@ -2,26 +2,30 @@
 <html>
 <head>
     <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Link to your custom CSS file -->
+    <link rel="stylesheet" href="<?= base_url('assets/css/Dashboard.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/LogIn.css') ?>">
 </head>
 <body class="bg-light">
-<div class="container mt-5">
-    <div class="card p-4 shadow-sm mx-auto" style="max-width: 400px;">
-        <h2 class="text-center mb-4">Login</h2>
-        <form method="post" action="<?php echo site_url('auth/login_user'); ?>">
-            <div class="mb-3">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-            <div class="mb-3">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Log In</button>
-        </form>
-        <div class="text-center mt-3">
-        <a href="<?php echo site_url('auth/registry'); ?>">Register</a>
+<div class="login-wrapper">
+    <h2 class="login-title">Login Into Your Account</h2>
+    <h3 class="login-subtitle">Customer</h3>
+    <form method="post" action="<?php echo site_url('auth/login_user'); ?>">
+        <div class="login-form-group">
+            <label for="email" class="login-label">Email</label>
+            <input type="email" name="email" id="email" class="login-input" required>
         </div>
+        <div class="login-form-group">
+            <label for="password" class="login-label">Pass</label>
+            <input type="password" name="password" id="password" class="login-input" required>
+        </div>
+        <div class="login-button-container">
+            <button type="submit" class="login-button">OK</button>
+        </div>
+    </form>
+    <div class="login-links">
+        <a href="#">Lost My Pass</a>
+        <a href="<?php echo site_url('auth/registry'); ?>">New Account</a>
     </div>
 </div>
 </body>

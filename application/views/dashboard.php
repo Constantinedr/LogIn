@@ -3,10 +3,15 @@
 <head>
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="<?= base_url('application/assets/css/Dashboard.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/Dashboard.css') ?>">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
+            
+            <?php if ($this->session->flashdata('success')): ?>
+                $('#successModal').modal('show');
+            <?php endif; ?>
+
             $('#myProfile').click(function (e) {
                 e.preventDefault();
                 $('.message-form, .history-form').removeClass('active');
@@ -30,8 +35,9 @@
         });
     </script>
 </head>
-
 <body class="bg-light">
+    <br>
+    <br>
     <div class="text-center mb-5">
         <a href="#" id="myProfile" class="btn btn-light custom-button">My Profile</a>
         <a href="#" id="submitNewForm" class="btn btn-light custom-button">Submit New Form</a>
@@ -39,7 +45,6 @@
     </div>
 
     <div class="form-container">
-        
         <form method="post" action="<?= site_url('dashboard/update_user') ?>" class="user-form active">
             <div class="mb-4">
                 <label for="first_name" class="form-label">Name</label>
@@ -59,23 +64,23 @@
             </div>
             <button type="submit" class="btn special-button">Update</button>
         </form>
-
-      
+    </div>
+    <div class="form-cont">
         <form method="post" action="<?= site_url('message/submit') ?>" class="message-form">
             <div class="mb-4">
                 <label for="message" class="form-label">Message</label>
-                <textarea name="message" id="message" class="form-control" rows="5" required></textarea>
+                <textarea name="message" id="message" class="custom-textarea" rows="10" required></textarea> 
             </div>
             <button type="submit" class="btn special-button">Send</button>
-            <button type="button" id="cancelMessage" class="btn special-button ms-2">Cancel</button>
         </form>
-
-        
+    </div>  
+    
+    <div class="form-cont">
         <div class="history-form">
             <?php if (!empty($messages)): ?>
                 <?php foreach ($messages as $message): ?>
                     <div class="message-item">
-                        <div class="message-text"><?= htmlspecialchars($message->message) ?></div>
+                        <div class="message-text"><?= htmlspecialchars($message->message)  ?></div>
                         <div class="message-date"><?= date('d/m/Y', strtotime($message->created_at)) ?></div>
                     </div>
                 <?php endforeach; ?>
@@ -83,6 +88,23 @@
                 <p>No messages found.</p>
             <?php endif; ?>
         </div>
+    </div>     
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <?= $this->session->flashdata('success') ?>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

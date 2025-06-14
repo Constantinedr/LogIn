@@ -38,7 +38,7 @@ class Auth extends CI_Controller {
         }
 
         if ($this->Auth_model->register($data)) {
-            echo "Registration successful. <a href='".site_url('auth/login')."'>Login</a>";
+           redirect('auth/login');
         } else {
             echo "Registration failed. <a href='".site_url('auth/registry')."'>Try again</a>";
         }
