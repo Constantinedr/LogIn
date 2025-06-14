@@ -14,7 +14,10 @@ class Auth_model extends CI_Model {
         return $this->db->where('id', $id)->update('users', $data);
     }
 
-    //cant have more than 50 char
+    public function save_message($data) {
+        $this->db->insert('messages', $data);
+    }
+
     public function register($data) {
         $user_data = [
             'first_name' => $data['first_name'],
@@ -35,10 +38,13 @@ class Auth_model extends CI_Model {
 
         return $this->db->insert('users', $data);
     }
+
     public function get_user_by_email($email)
     {
         return $this->db->get_where('users', ['email' => $email])->row();
     }
+
+
     public function login($username, $password)
     {
         $query = $this->db->get_where('users', ['username' => $username]);
@@ -48,5 +54,10 @@ class Auth_model extends CI_Model {
             return $user; 
         }
         return false;
+    }
+    public function get_messages() {
+        $this->db->where('user_id', $this->session->userdata('user_id'));
+        $this->db->order_by('created_at', 'DESC');
+        return $this->db->get('messages')->result();
     }
 }

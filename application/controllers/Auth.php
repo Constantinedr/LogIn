@@ -13,10 +13,11 @@ class Auth extends CI_Controller {
     public function login() {
         $this->load->view('login');
     }
+
     public function registry() {
         $this->load->view('registry');
     }
-    
+
     public function register_user() {
         $data = [
             'first_name' => $this->input->post('first_name'),
@@ -26,13 +27,11 @@ class Auth extends CI_Controller {
             'confirm_password' => $this->input->post('confirm_password')
         ];
 
-       
         if ($data['password'] !== $data['confirm_password']) {
             echo "Passwords do not match. <a href='".site_url('auth/registry')."'>Try again</a>";
             return;
         }
 
-     
         if ($this->Auth_model->get_user_by_email($data['email'])) {
             echo "Email already registered. <a href='".site_url('auth/registry')."'>Try again</a>";
             return;
@@ -45,47 +44,6 @@ class Auth extends CI_Controller {
         }
     }
 
-    public function dashboard() {
-    $user_id = $this->session->userdata('user_id');
-    if (!$user_id) {
-        redirect('auth/login');
-    }
-
-    $user = $this->Auth_model->get_user_by_id($user_id);
-    $data['user'] = $user;
-    $this->load->view('dashboard', $data);
-    }
-
-    public function update_user() {
-    $user_id = $this->session->userdata('user_id');
-    if (!$user_id) {
-        redirect('auth/login');
-    }
-
-    $data = [
-        'first_name' => $this->input->post('first_name'),
-        'last_name' => $this->input->post('last_name'),
-        'email' => $this->input->post('email'),
-    ];
-
-    $password = $this->input->post('password');
-    if (!empty($password)) {
-        $data['password'] = password_hash($password, PASSWORD_DEFAULT);
-    }
-
-    $this->Auth_model->update_user($user_id, $data);
-    redirect('auth/dashboard');
-}
-
-
-
-    public function test()
-    {
-        $this->load->model('Auth_model');
-        $this->Auth_model->insert_dummy();
-        echo "Inserted!";
-    }
-
     public function login_user() {
         $email = $this->input->post('email');
         $password = $this->input->post('password');
@@ -94,7 +52,7 @@ class Auth extends CI_Controller {
 
         if ($user && password_verify($password, $user->password)) {
             $this->session->set_userdata('user_id', $user->id);
-            redirect('auth/dashboard');
+            redirect('dashboard');
         } else {
             echo "Login failed. <a href='".site_url('auth/login')."'>Try again</a>";
         }
