@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Messages for <?= htmlspecialchars($user->first_name ?? '') ?> <?= htmlspecialchars($user->last_name ?? '') ?></title>
+    <title>Messages from <?= htmlspecialchars($user->first_name ?? '') ?> <?= htmlspecialchars($user->last_name ?? '') ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="<?= base_url('assets/css/Dashboard.css') ?>">
 </head>

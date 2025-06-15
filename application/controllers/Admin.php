@@ -60,8 +60,9 @@ class Admin extends CI_Controller {
     }
 
     public function delete_user($user_id) {
+        $this->Auth_model->delete_messages_by_user_id($user_id);
         $this->Auth_model->delete_user_by_id($user_id);
-        $this->session->set_flashdata('success', 'User deleted successfully.');
+        $this->session->set_flashdata('success', 'User and their messages deleted successfully.');
         redirect('admin/dashboard');
     }
 

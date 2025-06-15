@@ -1,4 +1,4 @@
-
+/* Existing styles (keep them as they are) */
 .special-button {
     position: relative;
     width: 200px;
@@ -14,25 +14,23 @@
     padding: 10px;
 }
 
-.form-control { 
+.form-control {
     border-radius: 0 !important;
     font-size: 1.2rem;
     padding: 12px;
     border: 1px solid #000;
 }
 
-
-.custom-textarea { 
+.custom-textarea {
     width: 100%;
-    height: 350px; 
+    height: 350px;
     font-size: 1.2rem;
     padding: 12px;
     border: 1px solid #000;
-    border-radius: 0 !important; 
+    border-radius: 0 !important;
     box-sizing: border-box;
-    resize: vertical; 
+    resize: vertical;
 }
-
 
 .custom-button {
     width: 350px;
@@ -47,7 +45,7 @@
     margin: 70px auto;
     font-size: 1.2rem;
 }
-.form-cont{
+.form-cont {
     max-width: 60%;
     margin: 0px auto;
     font-size: 1.2rem;
@@ -55,8 +53,6 @@
 .form-label {
     color: #6c757d;
 }
-
-
 
 .message-form,
 .user-form,
@@ -70,24 +66,77 @@
     display: block;
 }
 
-.message-item {
+/* Updated styles for Message History items */
+.message-item-card {
+    border: 1px solid #6c757d; /* Use a consistent border color from other elements */
+    margin-bottom: 10px;
+    background-color: #f8f9fa; /* Light background for the card */
+    padding: 15px;
+    border-radius: 0; /* Keep sharp corners */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow for depth */
+}
+
+.message-header {
     display: flex;
-    justify-content: space-between; 
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer; /* Indicates it's clickable for toggling */
+    padding-bottom: 10px; /* Space between header and content */
+    border-bottom: 1px solid #e9ecef; /* Separator line */
+    margin-bottom: 10px; /* Space after separator */
+}
+
+.message-sender {
+   
+    color: #343a40; /* Darker color for sender email */
+    font-size: 1.1rem;
+}
+
+/* Re-using .message-date from existing styles, but for clarity added here */
+.message-date {
+    flex-shrink: 0;
+    text-align: right;
+    white-space: nowrap;
+    font-size: 0.9rem; /* Smaller font for date */
+    color: #6c757d; /* Consistent gray for date */
+}
+
+.message-body-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #495057; /* Slightly darker gray for message text */
+    white-space: pre-wrap; /* Ensures line breaks in message are preserved */
+    word-wrap: break-word; /* Prevents long words from overflowing */
+    display: none; /* Initially hidden, will be toggled by JS */
+}
+
+/* Original .message-item from your CSS, removed as it conflicts or is redundant */
+/* .message-item {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 10px;
-    border: 1px solid #000; 
-    padding: 10px; 
-}
+    border: 1px solid #000;
+    padding: 10px;
+} */
+/* Ensure you only have one definition for .message-item or use specific class names */
+/* The .message-item in your provided CSS seems to be a mix of general and specific rules.
+   I've introduced .message-item-card and .message-body-content for clarity.
+   If you were using .message-item for individual message entries in 'All Message History',
+   the new .message-item-card replaces its role. */
+
+
+/* Customer accordion styles (keep as is, or adjust .accordion-body if it conflicts) */
 .customer-list {
     width: 100%;
-    padding-top: 20px; 
+    padding-top: 20px;
 }
 .customer-summary {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 5px; /* optional spacing */
+    margin-bottom: 5px;
 }
 
 .customer-item-display {
@@ -100,8 +149,8 @@
     background-color: #fff;
     color: #000;
     font-size: 1.2rem;
-    cursor: pointer; /* Added so it feels clickable */
-    flex-direction: column; /* To support expanding section below */
+    cursor: pointer;
+    flex-direction: column;
 }
 .customer-item-display:hover {
     background-color: #f1f1f1;
@@ -115,36 +164,6 @@
     border-top: 1px solid #ccc;
     padding-top: 10px;
 }
-.message-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start; /* Align items to the top for multi-line messages */
-    margin-bottom: 10px;
-    border: 1px solid #000; /* Black border for message items */
-    padding: 10px;
-    background-color: #fff; /* White background */
-    color: #000; /* Black text */
-}
-
-.message-text {
-    flex-grow: 1;
-    word-wrap: break-word; /* Ensure long messages wrap */
-    margin-right: 15px; /* Space between text and date */
-    font-size: 1.1rem; /* Adjust font size for message text */
-}
-
-.message-text strong {
-    color: #000; /* Ensure sender's email is black */
-}
-
-.message-date {
-    flex-shrink: 0;
-    text-align: right;
-    white-space: nowrap;
-    font-size: 0.9rem; /* Smaller font for date */
-    color: #666; /* Gray for date */
-}
-
 .customer-name {
     font-weight: normal;
     text-align: left;
@@ -153,38 +172,6 @@
 .last-interactive-date {
     font-size: 1rem;
     color: #333;
-    text-align: right;
-    white-space: nowrap;
-}
-.message-text {
-    flex-grow: 1; 
-    border: none;
-    padding: 0; 
-    word-wrap: break-word;
-    margin-right: 15px; 
-}
-.message-item {
-    display: block; 
-    border: 1px solid #000;
-    padding: 10px;
-    margin-bottom: 10px;
-}
-
-.message-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-}
-
-.message-content {
-    margin-top: 10px;
-    display: none;
-}
-.message-date {
-    flex-shrink: 0; 
-    border: none; 
-    padding: 0; 
     text-align: right;
     white-space: nowrap;
 }

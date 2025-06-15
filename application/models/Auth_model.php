@@ -35,7 +35,7 @@ class Auth_model extends CI_Model {
         ];
 
         if ($this->db->insert('users', $user_data)) {
-            return $verification_token; // Return token for sending email
+            return $verification_token;
         }
 
         return false;
@@ -61,11 +61,8 @@ class Auth_model extends CI_Model {
         $this->db->where('id', $id)->delete('users');
     }
 
-    public function get_messages_by_user_id($user_id) {
-        return $this->db->where('user_id', $user_id)
-                        ->order_by('created_at', 'DESC')
-                        ->get('messages')
-                        ->result();
+    public function delete_messages_by_user_id($user_id) {
+        $this->db->where('user_id', $user_id)->delete('messages');
     }
 
     public function verify_email($token) {
@@ -86,6 +83,7 @@ class Auth_model extends CI_Model {
 
     public function get_all_users() {
         $this->db->select('id, first_name, last_name, email, is_admin');
+        $this->db->where('is_admin', 0);
         $this->db->order_by('id', 'ASC');
         return $this->db->get('users')->result();
     }
@@ -94,6 +92,7 @@ class Auth_model extends CI_Model {
         $this->db->select('messages.*, users.email as user_email');
         $this->db->from('messages');
         $this->db->join('users', 'messages.user_id = users.id', 'left');
+        $this->db->where('users.is_admin', 0);
         $this->db->order_by('messages.created_at', 'DESC');
         return $this->db->get()->result();
     }
@@ -117,5 +116,12 @@ class Auth_model extends CI_Model {
     public function clear_reset_token($email) {
         return $this->db->where('email', $email)
                         ->update('users', ['reset_token' => null, 'token_created_at' => null]);
+    }
+
+    public function get_messages_by_user_id($user_id) {
+        return $this->db->where('user_id', $user_id)
+                        ->order_by('created_at', 'DESC')
+                        ->get('messages')
+                        ->result();
     }
 }
