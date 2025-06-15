@@ -1,4 +1,6 @@
 <?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
 class Auth_model extends CI_Model {
 
     public function __construct()
@@ -39,9 +41,6 @@ class Auth_model extends CI_Model {
         return false;
     }
 
-
-
-
     public function get_user_by_email($email)
     {
         return $this->db->get_where('users', ['email' => $email])->row();
@@ -57,10 +56,22 @@ class Auth_model extends CI_Model {
         }
         return false;
     }
+
+    public function delete_user_by_id($id) {
+        $this->db->where('id', $id)->delete('users');
+    }
+
+    public function get_messages_by_user_id($user_id) {
+        return $this->db->where('user_id', $user_id)
+                        ->order_by('created_at', 'DESC')
+                        ->get('messages')
+                        ->result();
+    }
+
     public function verify_email($token) {
-    $this->db->where('verification_token', $token);
-    $this->db->where('email_verified', 0);
-    return $this->db->update('users', ['email_verified' => 1, 'verification_token' => null]);
+        $this->db->where('verification_token', $token);
+        $this->db->where('email_verified', 0);
+        return $this->db->update('users', ['email_verified' => 1, 'verification_token' => null]);
     }
 
     public function get_user_by_token($token) {
@@ -86,7 +97,7 @@ class Auth_model extends CI_Model {
         $this->db->order_by('messages.created_at', 'DESC');
         return $this->db->get()->result();
     }
-    
+
     public function save_password_reset_token($email, $token) {
         return $this->db->where('email', $email)
                         ->update('users', ['reset_token' => $token, 'token_created_at' => date('Y-m-d H:i:s')]);

@@ -1,46 +1,12 @@
-/* Dashboard.css - Cleaned and Refined */
 
-/* General Resets and Box Sizing */
-html {
-    box-sizing: border-box;
-}
-*, *::before, *::after {
-    box-sizing: inherit;
-    margin: 0;
-    padding: 0;
+.special-button {
+    position: relative;
+    width: 200px;
+    border: 1px solid #000;
+    background-color: #f8f9fa;
+    margin-top: 10px;
 }
 
-/* Base Body Styles */
-body {
-    font-family: sans-serif;
-    background-color: #f8f9fa; /* Light gray background */
-    color: #6c757d; /* Default text color, adjust if needed for specific elements */
-    min-height: 100vh;
-}
-
-/* General Link Styles */
-a {
-    color: #6c757d;
-    text-decoration: none;
-    transition: text-decoration 0.2s;
-}
-a:hover {
-    text-decoration: underline;
-}
-
-/* Form Elements - General Styles */
-.form-label {
-    color: #6c757d;
-}
-
-.form-control {
-    border-radius: 0 !important;
-    font-size: 1.2rem;
-    padding: 12px;
-    border: 1px solid #000; /* Black border for form controls */
-}
-
-/* Buttons - General Styles */
 .btn {
     border-radius: 0 !important;
     text-align: center;
@@ -48,101 +14,107 @@ a:hover {
     padding: 10px;
 }
 
-/* Specific styles for the top navigation buttons */
-.custom-button {
-    width: 200px; /* Adjusted width as seen in the image */
-    height: 50px;
-    margin: 0 5px; /* Spacing between navigation buttons */
+.form-control { 
+    border-radius: 0 !important;
     font-size: 1.2rem;
-    border: 1px solid #000; /* Black border */
-    background-color: #fff; /* White background */
-    color: #000; /* Black text */
-    /* Remove text-decoration on hover for these specific buttons if you want */
-    text-decoration: none;
-    transition: background-color 0.2s;
-}
-.custom-button:hover {
-    background-color: #e9ecef; /* Light gray hover */
-    text-decoration: none; /* Keep text-decoration off on hover */
-}
-
-/* Highlight for the active button (e.g., "Customers" / "View All Users") */
-.custom-button.active-customers { /* Add this class to the 'View All Users' button when active */
-    border: 1px solid red; /* Red border for active tab as per image */
-}
-
-/* Specific styles for the 'My Profile' form buttons */
-.special-button {
-    position: relative;
-    width: 200px;
+    padding: 12px;
     border: 1px solid #000;
-    background-color: #f8f9fa; /* Background matches body for a subtle look */
-    color: #000; /* Black text */
-    margin-top: 10px;
-}
-.special-button:hover {
-    background-color: #e9ecef; /* Light gray hover */
 }
 
 
-/* Form container specific styles */
+.custom-textarea { 
+    width: 100%;
+    height: 350px; 
+    font-size: 1.2rem;
+    padding: 12px;
+    border: 1px solid #000;
+    border-radius: 0 !important; 
+    box-sizing: border-box;
+    resize: vertical; 
+}
+
+
+.custom-button {
+    width: 350px;
+    height: 50px;
+    margin: 0 15px;
+    font-size: 1.2rem;
+    border: 1px solid #000;
+}
+
 .form-container {
-    max-width: 600px; /* Max width for the "My Profile" form */
-    margin: 70px auto 0 auto; /* Top margin for "My Profile" form, centered */
+    max-width: 600px;
+    margin: 70px auto;
     font-size: 1.2rem;
 }
-.form-cont {
-    max-width: 50%; /* Max width for the "Customers" and "Message History" forms */
-    margin: 0px auto; /* Centered */
+.form-cont{
+    max-width: 60%;
+    margin: 0px auto;
     font-size: 1.2rem;
+}
+.form-label {
+    color: #6c757d;
 }
 
 
-/* Hide inactive forms using display: none */
-/* The JS toggles 'active' class, so these are the default states */
-.user-form:not(.active), /* "My Profile" form */
-.message-form:not(.active), /* "Customers" form */
-.history-form:not(.active) { /* "Message History" form */
+
+.message-form,
+.user-form,
+.history-form {
     display: none;
 }
 
-/* Show the active form */
-.user-form.active,
 .message-form.active,
+.user-form.active,
 .history-form.active {
     display: block;
 }
 
-
-/* Styles for the Customer List to match the image */
+.message-item {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    margin-bottom: 10px;
+    border: 1px solid #000; 
+    padding: 10px; 
+}
 .customer-list {
     width: 100%;
-    padding-top: 20px; /* Space between the menu and the first customer item */
+    padding-top: 20px; 
+}
+.customer-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px; /* optional spacing */
 }
 
 .customer-item-display {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid #000; /* Black border for each customer item */
+    border: 1px solid #000;
     padding: 15px 20px;
-    margin-bottom: 10px; /* Space between customer items */
-    background-color: #fff; /* White background */
-    color: #000; /* Black text */
+    margin-bottom: 10px;
+    background-color: #fff;
+    color: #000;
     font-size: 1.2rem;
+    cursor: pointer; /* Added so it feels clickable */
+    flex-direction: column; /* To support expanding section below */
 }
-
-.customer-name {
-    font-weight: normal; /* Ensure normal weight */
+.customer-item-display:hover {
+    background-color: #f1f1f1;
 }
-
-.last-interactive-date {
-    font-size: 1.0rem; /* Slightly smaller font for the date text */
-    color: #333; /* Darker gray for better contrast */
-    white-space: nowrap; /* Prevents text from wrapping */
+.customer-details {
+    display: none;
+    margin-top: 10px;
+    width: 100%;
+    font-size: 1rem;
+    color: #333;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
 }
-
-/* Message History styles */
 .message-item {
     display: flex;
     justify-content: space-between;
@@ -171,4 +143,48 @@ a:hover {
     white-space: nowrap;
     font-size: 0.9rem; /* Smaller font for date */
     color: #666; /* Gray for date */
+}
+
+.customer-name {
+    font-weight: normal;
+    text-align: left;
+    flex: 1;
+}
+.last-interactive-date {
+    font-size: 1rem;
+    color: #333;
+    text-align: right;
+    white-space: nowrap;
+}
+.message-text {
+    flex-grow: 1; 
+    border: none;
+    padding: 0; 
+    word-wrap: break-word;
+    margin-right: 15px; 
+}
+.message-item {
+    display: block; 
+    border: 1px solid #000;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.message-content {
+    margin-top: 10px;
+    display: none;
+}
+.message-date {
+    flex-shrink: 0; 
+    border: none; 
+    padding: 0; 
+    text-align: right;
+    white-space: nowrap;
 }

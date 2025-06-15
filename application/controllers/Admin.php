@@ -58,4 +58,47 @@ class Admin extends CI_Controller {
 
         redirect('admin/dashboard');
     }
+
+    public function delete_user($user_id) {
+        $this->Auth_model->delete_user_by_id($user_id);
+        $this->session->set_flashdata('success', 'User deleted successfully.');
+        redirect('admin/dashboard');
+    }
+
+    public function edit_user($user_id) {
+        $data['user'] = $this->Auth_model->get_user_by_id($user_id);
+        if (!$data['user']) {
+            show_404();
+        }
+        $this->load->view('edit_user_form', $data);
+    }
+
+    public function update_user($user_id) {
+        $submitted_data = [
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'email' => $this->input->post('email'),
+        ];
+
+        $password = $this->input->post('password');
+        if (!empty($password)) {
+            $submitted_data['password'] = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        $this->Auth_model->update_user($user_id, $submitted_data);
+        $this->session->set_flashdata('success', 'User updated successfully.');
+        redirect('admin/dashboard');
+    }
+
+    public function user_messages($user_id) {
+        $user = $this->Auth_model->get_user_by_id($user_id);
+        if (!$user) {
+            show_404();
+        }
+
+        $data['user'] = $user;
+        $data['messages'] = $this->Auth_model->get_messages_by_user_id($user_id);
+
+        $this->load->view('user_messages', $data);
+    }
 }
