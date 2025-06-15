@@ -31,7 +31,7 @@ class Auth extends CI_Controller {
             'email' => $this->input->post('email'),
             'password' => $this->input->post('password'),
             'confirm_password' => $this->input->post('confirm_password'),
-            'is_admin' => 0 // Ensure new users are not admins by default
+            'is_admin' => 0
         ];
 
         if ($data['password'] !== $data['confirm_password']) {
@@ -44,26 +44,79 @@ class Auth extends CI_Controller {
             return;
         }
 
-        if ($this->Auth_model->register($data)) {
-           redirect('auth/login');
+        $token = $this->Auth_model->register($data);
+        if ($token) {
+            $verify_link = site_url('auth/verify_email/' . $token);
+
+            $config = [
+                'protocol'  => 'smtp',
+                'smtp_host' => 'smtp.gmail.com',
+                'smtp_port' => 587,
+                'smtp_user' => 'lampadarisconstantine@gmail.com',
+                'smtp_pass' => $this->config->item('smtp_pass'),
+                'smtp_crypto' => 'tls',
+                'mailtype'  => 'html',
+                'charset'   => 'utf-8',
+                'newline'   => "\r\n",
+                'crlf'      => "\r\n"
+            ];
+
+            $this->email->initialize($config);
+            $this->email->from('yourgmail@gmail.com', 'Your App Name');
+            $this->email->to($data['email']);
+            $this->email->subject('Email Verification');
+            $this->email->message("Click the link to verify your email: <a href='$verify_link'>$verify_link</a>");
+
+            if ($this->email->send()) {
+                echo "Check your email to verify your account.";
+            } else {
+                echo "Failed to send verification email.";
+                show_error($this->email->print_debugger());
+            }
         } else {
-            echo "Registration failed. <a href='".site_url('auth/registry')."'>Try again</a>";
+            echo "Registration failed.";
         }
     }
 
-    public function login_user() {
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
+    public function verify_email($token = null) {
+        if (!$token) {
+            show_404();
+        }
 
-        $user = $this->Auth_model->get_user_by_email($email);
+        $user = $this->Auth_model->get_user_by_token($token);
+        if (!$user) {
+            echo "Invalid or expired verification token.";
+            return;
+        }
 
-        if ($user && password_verify($password, $user->password) && !$user->is_admin) {
+        if ($this->Auth_model->verify_email($token)) {
+            echo "Email verified successfully! <a href='".site_url('auth/login')."'>Login</a>";
+        } else {
+            echo "Verification failed or already verified.";
+        }
+    }
+
+public function login_user() {
+    $email = $this->input->post('email');
+    $password = $this->input->post('password');
+
+    $user = $this->Auth_model->get_user_by_email($email);
+
+    if ($user && password_verify($password, $user->password)) {
+        if (!$user->is_admin) {
+            if (!$user->email_verified) {
+                echo "Please verify your email before logging in. <a href='" . site_url('auth/login') . "'>Try again</a>";
+                return;
+            }
             $this->session->set_userdata('user_id', $user->id);
             redirect('dashboard');
         } else {
-            echo "Login failed. Invalid credentials or not a customer account. <a href='".site_url('auth/login')."'>Try again</a>";
+            echo "This login is for customer accounts only. <a href='" . site_url('auth/login') . "'>Try again</a>";
         }
+    } else {
+        echo "Login failed. Invalid credentials. <a href='" . site_url('auth/login') . "'>Try again</a>";
     }
+}
 
     public function login_admin() {
         $email = $this->input->post('email');

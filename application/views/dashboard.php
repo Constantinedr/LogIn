@@ -7,7 +7,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
-            
+            $('.history-form').on('click', '.message-header', function () {
+                const targetId = $(this).data('target');
+                $(targetId).slideToggle();
+            });
             <?php if ($this->session->flashdata('success')): ?>
                 $('#successModal').modal('show');
             <?php endif; ?>
@@ -79,17 +82,22 @@
     <div class="form-cont">
         <div class="history-form">
             <?php if (!empty($messages)): ?>
-                <?php foreach ($messages as $message): ?>
+                <?php foreach ($messages as $index => $message): ?>
                     <div class="message-item">
-                        <div class="message-text"><?= htmlspecialchars($message->message)  ?></div>
-                        <div class="message-date"><?= date('d/m/Y', strtotime($message->created_at)) ?></div>
+                        <div class="message-header" data-target="#content-<?= $index ?>">
+                            <span class="message-text">Message <?= $index + 1 ?></span>
+                            <span class="message-date"><?= date('d/m/Y', strtotime($message->created_at)) ?></span>
+                        </div>
+                        <div class="message-content" id="content-<?= $index ?>">
+                            <?= nl2br(htmlspecialchars($message->message)) ?>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>No messages found.</p>
             <?php endif; ?>
         </div>
-    </div>     
+    </div>
     <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">

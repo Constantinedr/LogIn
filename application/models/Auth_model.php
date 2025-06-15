@@ -20,27 +20,27 @@ class Auth_model extends CI_Model {
     }
 
     public function register($data) {
+        $verification_token = random_string('alnum', 64);
+
         $user_data = [
             'first_name' => $data['first_name'],
             'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-            'is_admin' => isset($data['is_admin']) ? $data['is_admin'] : 0
+            'is_admin' => isset($data['is_admin']) ? $data['is_admin'] : 0,
+            'email_verified' => 0,
+            'verification_token' => $verification_token
         ];
 
-        return $this->db->insert('users', $user_data);
+        if ($this->db->insert('users', $user_data)) {
+            return $verification_token; // Return token for sending email
+        }
+
+        return false;
     }
 
-    public function insert_dummy()
-    {
-        $data = [
-            'email' => 'test@example.com',
-            'password' => password_hash('password', PASSWORD_DEFAULT),
-            'is_admin' => 0
-        ];
 
-        return $this->db->insert('users', $data);
-    }
+
 
     public function get_user_by_email($email)
     {
@@ -56,6 +56,15 @@ class Auth_model extends CI_Model {
             return $user;
         }
         return false;
+    }
+    public function verify_email($token) {
+    $this->db->where('verification_token', $token);
+    $this->db->where('email_verified', 0);
+    return $this->db->update('users', ['email_verified' => 1, 'verification_token' => null]);
+    }
+
+    public function get_user_by_token($token) {
+        return $this->db->get_where('users', ['verification_token' => $token])->row();
     }
 
     public function get_messages() {

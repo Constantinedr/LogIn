@@ -65,44 +65,44 @@
         </form>
     </div>
 
-    <div class="form-cont">
-        <div class="message-form">
-            <h3 class="text-center mb-4">All Customers</h3>
-            <?php if (!empty($users)): ?>
-                <div class="accordion" id="customerAccordion">
-                    <?php foreach ($users as $index => $user): ?>
-                        <?php
-                            // Get user's last message date, if applicable
-                            $lastMessageDate = '';
-                            foreach ($messages as $message) {
-                                if ($message->user_email === $user->email) {
-                                    $lastMessageDate = date('d/m/Y', strtotime($message->created_at));
-                                    break;
-                                }
+
+
+<div class="form-cont">
+    <div class="message-form">
+        <?php if (!empty($users)): ?>
+            <div class="customer-list"> <?php // New wrapper for customer items ?>
+                <?php foreach ($users as $index => $user): ?>
+                    <?php
+                        $lastMessageDate = '';
+                        foreach ($messages as $message) {
+                            if ($message->user_email === $user->email) {
+                                $lastMessageDate = date('d/m/Y', strtotime($message->created_at));
+                                break;
                             }
-                        ?>
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="heading<?= $index ?>">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<?= $index ?>" aria-expanded="false" aria-controls="collapse<?= $index ?>">
-                                    Customer <?= htmlspecialchars($user->first_name) ?>
-                                    &nbsp;&nbsp;•&nbsp;&nbsp;<?= $lastMessageDate ? $lastMessageDate : 'No messages yet' ?>
-                                </button>
-                            </h2>
-                            <div id="collapse<?= $index ?>" class="accordion-collapse collapse" aria-labelledby="heading<?= $index ?>" data-bs-parent="#customerAccordion">
-                                <div class="accordion-body">
-                                    <strong>First Name:</strong> <?= htmlspecialchars($user->first_name) ?><br>
-                                    <strong>Last Name:</strong> <?= htmlspecialchars($user->last_name) ?><br>
-                                    <strong>Email:</strong> <?= htmlspecialchars($user->email) ?>
-                                </div>
-                            </div>
+                        }
+                    ?>
+                    <div class="customer-item-display"> <?php // Simplified customer item ?>
+                        <div class="customer-name">
+                            Customer <?= htmlspecialchars($user->first_name) ?>
+                            <?php // Conditionally display email if first_name is empty or for a specific customer like the email example in the image ?>
+                            <?php if (empty($user->first_name) && filter_var($user->email, FILTER_VALIDATE_EMAIL)): ?>
+                                <?= htmlspecialchars($user->email) ?>
+                            <?php endif; ?>
                         </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php else: ?>
-                <p class="text-center">No users found.</p>
-            <?php endif; ?>
-        </div>
+                        <div class="last-interactive-date">
+                            Last interactive date/month/year
+                            <?php // The image explicitly shows "Last interactive date/month/year", not the actual date ?>
+                            <?php // If you want the actual date from your PHP: ?>
+                            <?php // echo $lastMessageDate ? $lastMessageDate : 'No messages yet'; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="text-center">No users found.</p>
+        <?php endif; ?>
     </div>
+</div>
 
     <div class="form-cont">
         <div class="history-form">

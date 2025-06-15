@@ -1,4 +1,4 @@
-/* Dashboard.css */
+/* Dashboard.css - Cleaned and Refined */
 
 /* General Resets and Box Sizing */
 html {
@@ -13,8 +13,8 @@ html {
 /* Base Body Styles */
 body {
     font-family: sans-serif;
-    background-color: #f8f9fa;
-    color: #6c757d;
+    background-color: #f8f9fa; /* Light gray background */
+    color: #6c757d; /* Default text color, adjust if needed for specific elements */
     min-height: 100vh;
 }
 
@@ -29,11 +29,6 @@ a:hover {
 }
 
 /* Form Elements - General Styles */
-.form-group {
-    margin-bottom: 15px;
-    text-align: left;
-}
-
 .form-label {
     color: #6c757d;
 }
@@ -42,7 +37,7 @@ a:hover {
     border-radius: 0 !important;
     font-size: 1.2rem;
     padding: 12px;
-    border: 1px solid #000;
+    border: 1px solid #000; /* Black border for form controls */
 }
 
 /* Buttons - General Styles */
@@ -53,191 +48,127 @@ a:hover {
     padding: 10px;
 }
 
+/* Specific styles for the top navigation buttons */
+.custom-button {
+    width: 200px; /* Adjusted width as seen in the image */
+    height: 50px;
+    margin: 0 5px; /* Spacing between navigation buttons */
+    font-size: 1.2rem;
+    border: 1px solid #000; /* Black border */
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
+    /* Remove text-decoration on hover for these specific buttons if you want */
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+.custom-button:hover {
+    background-color: #e9ecef; /* Light gray hover */
+    text-decoration: none; /* Keep text-decoration off on hover */
+}
+
+/* Highlight for the active button (e.g., "Customers" / "View All Users") */
+.custom-button.active-customers { /* Add this class to the 'View All Users' button when active */
+    border: 1px solid red; /* Red border for active tab as per image */
+}
+
+/* Specific styles for the 'My Profile' form buttons */
 .special-button {
     position: relative;
     width: 200px;
     border: 1px solid #000;
-    background-color: #f8f9fa;
+    background-color: #f8f9fa; /* Background matches body for a subtle look */
+    color: #000; /* Black text */
     margin-top: 10px;
 }
-
-.custom-button {
-    width: 350px;
-    height: 50px;
-    margin: 0 15px;
-    font-size: 1.2rem;
-    border: 1px solid #000;
+.special-button:hover {
+    background-color: #e9ecef; /* Light gray hover */
 }
+
 
 /* Form container specific styles */
 .form-container {
-    max-width: 600px;
-    margin: 70px auto;
+    max-width: 600px; /* Max width for the "My Profile" form */
+    margin: 70px auto 0 auto; /* Top margin for "My Profile" form, centered */
     font-size: 1.2rem;
 }
 .form-cont {
-    max-width: 50%;
-    margin: 0px auto;
+    max-width: 50%; /* Max width for the "Customers" and "Message History" forms */
+    margin: 0px auto; /* Centered */
     font-size: 1.2rem;
 }
 
-/* Hide inactive forms */
-.admin-form,
-.users-form,
-.history-form {
+
+/* Hide inactive forms using display: none */
+/* The JS toggles 'active' class, so these are the default states */
+.user-form:not(.active), /* "My Profile" form */
+.message-form:not(.active), /* "Customers" form */
+.history-form:not(.active) { /* "Message History" form */
     display: none;
 }
 
 /* Show the active form */
-.admin-form.active,
-.users-form.active,
+.user-form.active,
+.message-form.active,
 .history-form.active {
     display: block;
+}
+
+
+/* Styles for the Customer List to match the image */
+.customer-list {
+    width: 100%;
+    padding-top: 20px; /* Space between the menu and the first customer item */
+}
+
+.customer-item-display {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #000; /* Black border for each customer item */
+    padding: 15px 20px;
+    margin-bottom: 10px; /* Space between customer items */
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
+    font-size: 1.2rem;
+}
+
+.customer-name {
+    font-weight: normal; /* Ensure normal weight */
+}
+
+.last-interactive-date {
+    font-size: 1.0rem; /* Slightly smaller font for the date text */
+    color: #333; /* Darker gray for better contrast */
+    white-space: nowrap; /* Prevents text from wrapping */
 }
 
 /* Message History styles */
 .message-item {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Align items to the top for multi-line messages */
     margin-bottom: 10px;
-    border: 1px solid #000;
+    border: 1px solid #000; /* Black border for message items */
     padding: 10px;
+    background-color: #fff; /* White background */
+    color: #000; /* Black text */
 }
 
 .message-text {
     flex-grow: 1;
-    border: none;
-    padding: 0;
-    word-wrap: break-word;
-    margin-right: 15px;
+    word-wrap: break-word; /* Ensure long messages wrap */
+    margin-right: 15px; /* Space between text and date */
+    font-size: 1.1rem; /* Adjust font size for message text */
+}
+
+.message-text strong {
+    color: #000; /* Ensure sender's email is black */
 }
 
 .message-date {
     flex-shrink: 0;
-    border: none;
-    padding: 0;
     text-align: right;
     white-space: nowrap;
-}
-
-/* Custom Textarea */
-.custom-textarea {
-    width: 100%;
-    height: 350px;
-    font-size: 1.2rem;
-    padding: 12px;
-    border: 1px solid #000;
-    border-radius: 0 !important;
-    box-sizing: border-box;
-    resize: vertical;
-}
-
-/* Accordion Component Overrides for Customers Section */
-.accordion {
-    --bs-accordion-border-color: #6c757d;
-    --bs-accordion-border-radius: 0;
-    --bs-accordion-inner-border-radius: 0;
-    --bs-accordion-btn-focus-box-shadow: none;
-    --bs-accordion-btn-active-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236c757d'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-    --bs-accordion-btn-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%236c757d'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
-    --bs-accordion-active-color: #6c757d;
-    --bs-accordion-active-bg: #e9ecef;
-}
-
-.accordion-item {
-    border: 1px solid #6c757d;
-    margin-bottom: 10px;
-    border-radius: 0;
-}
-
-.accordion-header {
-    margin-bottom: 0;
-}
-
-.accordion-button {
-    background-color: #fff;
-    color: #6c757d;
-    font-size: 1.1rem;
-    padding: 15px 20px;
-    border-radius: 0;
-    border: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    text-align: left;
-}
-
-.accordion-button:not(.collapsed) {
-    background-color: #e9ecef;
-    color: #343a40;
-}
-
-.accordion-button::after {
-    color: #6c757d;
-}
-
-.customer-header-left {
-    font-weight: bold;
-    flex-grow: 1;
-}
-
-.customer-header-right {
-    font-size: 0.9em;
-    color: #888;
-    white-space: nowrap;
-    margin-left: 20px;
-}
-
-.accordion-body {
-    background-color: #fdfdfd;
-    border-top: 1px solid #6c757d;
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.customer-info-block {
-    border: 1px solid #6c757d;
-    padding: 15px;
-    flex: 1 1 250px;
-    line-height: 1.6;
-    background-color: #fff;
-    min-width: 200px;
-}
-
-.customer-buttons-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    flex: 1 1 200px;
-    justify-content: center;
-}
-
-.customer-action-button {
-    padding: 10px 15px;
-    border: 1px solid #6c757d;
-    background-color: #fff;
-    color: #6c757d;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 0;
-    transition: background-color 0.2s, color 0.2s;
-    text-transform: uppercase;
-    width: 100%;
-}
-
-.customer-action-button:hover {
-    background-color: #e9ecef;
-}
-
-.delete-button {
-    border-color: #dc3545;
-    color: #dc3545;
-}
-.delete-button:hover {
-    background-color: #dc3545;
-    color: #fff;
+    font-size: 0.9rem; /* Smaller font for date */
+    color: #666; /* Gray for date */
 }

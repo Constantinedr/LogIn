@@ -27,8 +27,6 @@ class Dashboard extends CI_Controller {
 
         
         $current_user = $this->Auth_model->get_user_by_id($user_id);
-
-        
         $submitted_data = [
             'first_name' => $this->input->post('first_name'),
             'last_name' => $this->input->post('last_name'),
